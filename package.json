@@ -29,11 +29,18 @@
     "url": "git://github.com/durs/node-activex.git"
   },
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "node-gyp-build": "^4.2.1",
+    "prebuildify": "^4.0.0",
+    "prebuildify-ci": "^1.0.5"
+  },
   "engines": {
     "node": ">= 8.0.0"
   },
   "scripts": {
+    "install": "node-gyp-build",
+    "prebuild": "prebuildify --napi --tag-armv --tag-uv",
+    "prepack": "prebuildify-ci download && ([ $(ls prebuilds | wc -l) = '5' ] || (echo 'Some prebuilds are missing'; exit 1))",
     "test": "mocha test"
   },
   "license": "MIT",
